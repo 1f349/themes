@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-900">
+<head>
+    <title>{{.ServiceName}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/style.css">
+    <script>
+        window.addEventListener("load", function () {
+            selectText("app-secret");
+        });
+
+        // Thanks again: https://stackoverflow.com/a/987376
+        function selectText(nodeId) {
+            const node = document.getElementById(nodeId);
+
+            if (document.body.createTextRange) {
+                const range = document.body.createTextRange();
+                range.moveToElementText(node);
+                range.select();
+            } else if (window.getSelection) {
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(node);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            } else {
+                console.warn("Could not select text in node: Unsupported browser.");
+            }
+        }
+    </script>
+</head>
+<body>
+{{template "header.go.html" .}}
+<main>
+    {{if .NewAppSecret}}
+        <div>New application secret: <span id="app-secret">{{.NewAppSecret}}</span> for {{.NewAppName}}</div>
+    {{end}}
+
+    {{if .Edit}}
+        <h2>Edit Client Application</h2>
+        <form method="POST" action="/manage/apps">
+            <input type="hidden" name="action" value="edit"/>
+            <input type="hidden" name="offset" value="{{.Offset}}"/>
+            <input type="hidden" name="subject" value="{{.Edit.Sub}}"/>
+            <div>
+                <label>ID: {{.Edit.Sub}}</label>
+            </div>
+            <div>
+                <label for="field_name">Name:</label>
+                <input type="text" name="name" id="field_name" value="{{.Edit.Name}}" required/>
+            </div>
+            <div>
+                <label for="field_domain">Domain:</label>
+                <input type="text" name="domain" id="field_domain" value="{{.Edit.Domain}}" required/>
+            </div>
+            {{if .IsAdmin}}
+                <div>
+                    <label for="field_perms">Perms:</label>
+                    <input type="text" name="perms" id="field_perms" value="{{.Edit.Perms}}" size="100"/>
+                </div>
+            {{end}}
+            <div>
+                <label for="field_public">Public: <input type="checkbox" name="public" id="field_public" {{if .Edit.Public}}checked{{end}}/></label>
+            </div>
+            {{if .IsAdmin}}
+                <div>
+                    <label for="field_sso">SSO: <input type="checkbox" name="sso" id="field_sso" {{if .Edit.SSO}}checked{{end}}/></label>
+                </div>
+            {{end}}
+            <div>
+                <label for="field_active">Active: <input type="checkbox" name="active" id="field_active" {{if .Edit.Active}}checked{{end}}/></label>
+            </div>
+            <button type="submit">Edit</button>
+        </form>
+        <form method="GET" action="/manage/apps">
+            <input type="hidden" name="offset" value="{{.Offset}}"/>
+            <button type="submit">Cancel</button>
+        </form>
+    {{else}}
+        <h2>Manage Client Applications</h2>
+        {{if eq (len .Apps) 0}}
+            <div>No client applications found</div>
+        {{else}}
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Domain</th>
+                    <th>Perms</th>
+                    <th>SSO</th>
+                    <th>Active</th>
+                    <th>Owner</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{range .Apps}}
+                    <tr>
+                        <td>{{.Sub}}</td>
+                        <td>{{.Name}}</td>
+                        <td>{{.Domain}}</td>
+                        <td>{{.Perms}}</td>
+                        <td>{{.SSO}}</td>
+                        <td>{{.Active}}</td>
+                        <td>{{.Owner}}</td>
+                        <td>
+                            <form method="GET" action="/manage/apps">
+                                <input type="hidden" name="offset" value="{{$.Offset}}"/>
+                                <input type="hidden" name="edit" value="{{.Sub}}"/>
+                                <button type="submit">Edit</button>
+                            </form>
+                            <form method="POST" action="/manage/apps?offset={{$.Offset}}">
+                                <input type="hidden" name="action" value="secret"/>
+                                <input type="hidden" name="offset" value="{{$.Offset}}"/>
+                                <input type="hidden" name="subject" value="{{.Sub}}"/>
+                                <button type="submit">Reset Secret</button>
+                            </form>
+                        </td>
+                    </tr>
+                {{end}}
+                </tbody>
+            </table>
+        {{end}}
+
+        <h2>Create Client Application</h2>
+        <form method="POST" action="/manage/apps">
+            <input type="hidden" name="action" value="create"/>
+            <input type="hidden" name="offset" value="{{.Offset}}"/>
+            <div>
+                <label for="field_name">Name:</label>
+                <input type="text" name="name" id="field_name" required/>
+            </div>
+            <div>
+                <label for="field_domain">Domain:</label>
+                <input type="text" name="domain" id="field_domain" required/>
+            </div>
+            {{if .IsAdmin}}
+                <div>
+                    <label for="field_perms">Perms:</label>
+                    <input type="text" name="perms" id="field_perms"/>
+                </div>
+            {{end}}
+            <div>
+                <label for="field_public">Public: <input type="checkbox" name="public" id="field_public"/></label>
+            </div>
+            {{if .IsAdmin}}
+                <div>
+                    <label for="field_sso">SSO: <input type="checkbox" name="sso" id="field_sso"/></label>
+                </div>
+            {{end}}
+            <div>
+                <label for="field_active">Active: <input type="checkbox" name="active" id="field_active" checked/></label>
+            </div>
+            <button type="submit">Create</button>
+        </form>
+    {{end}}
+</main>
+</body>
+</html>

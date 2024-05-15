@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-900">
+<head>
+    <title>{{.ServiceName}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+{{template "header.go.html" .}}
+<main>
+    {{if .Edit}}
+        <h2>Edit User</h2>
+        <form method="POST" action="/manage/users">
+            <input type="hidden" name="action" value="edit"/>
+            <input type="hidden" name="offset" value="{{.Offset}}"/>
+            <div>
+                <label for="field_subject">Subject:</label>
+                <input type="text" name="subject" id="field_subject" value="{{.Edit.Sub}}" required/>
+            </div>
+            <div>
+                <label for="field_roles">Roles:</label>
+                <input type="text" name="roles" id="field_roles" value="{{.Edit.Roles}}" size="100"/>
+            </div>
+            <div>
+                <label for="field_active">Active: <input type="checkbox" name="active" id="field_active" checked/></label>
+            </div>
+            <button type="submit">Edit</button>
+        </form>
+        <form method="GET" action="/manage/users">
+            <input type="hidden" name="offset" value="{{.Offset}}"/>
+            <button type="submit">Cancel</button>
+        </form>
+    {{else}}
+        <h2>Manage Users</h2>
+        {{if eq (len .Users) 0}}
+            <div>No users found, this is definitely a bug.</div>
+        {{else}}
+            <table>
+                <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Email</th>
+                    <th>Email Verified</th>
+                    <th>Roles</th>
+                    <th>Last Updated</th>
+                    <th>Active</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{range .Users}}
+                    <tr>
+                        <td>{{.Sub}}</td>
+                        <th>
+                            {{if $.EmailShow}}
+                                <span>{{.Email}}</span>
+                            {{else}}
+                                <span>{{emailHide .Email}}</span>
+                            {{end}}
+                        </th>
+                        <th>{{.EmailVerified}}</th>
+                        <th>{{.Roles}}</th>
+                        <th>{{.UpdatedAt}}</th>
+                        <td>{{.Active}}</td>
+                        <td>
+                            <form method="GET" action="/manage/users">
+                                <input type="hidden" name="offset" value="{{$.Offset}}"/>
+                                <input type="hidden" name="edit" value="{{.Sub}}"/>
+                                <button type="submit">Edit</button>
+                            </form>
+                            <form method="POST" action="/reset-password">
+                                <input type="hidden" name="email" value="{{.Email}}"/>
+                                <button type="submit">Send Reset Password Email</button>
+                            </form>
+                        </td>
+                    </tr>
+                {{end}}
+                </tbody>
+            </table>
+            <form method="GET" action="/manage/users">
+                <input type="hidden" name="offset" value="{{.Offset}}"/>
+                {{if not .EmailShow}}
+                    <input type="hidden" name="show-email"/>
+                {{end}}
+                <button type="submit">{{if .EmailShow}}Hide Email Addresses{{else}}Show email addresses{{end}}</button>
+            </form>
+        {{end}}
+    {{end}}
+</main>
+</body>
+</html>

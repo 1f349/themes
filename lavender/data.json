@@ -1,0 +1,13 @@
+{
+    "ServiceName": "Test Service",
+    "DisplayName": "Test User",
+    "Subject": "uuid",
+    "IsAdmin": true,
+    "LoginName": "jane@example.com",
+    "WantsList": [
+        "An example permission",
+        "Another perm"
+    ],
+    "AppName": "Marshmallow Sample App",
+    "AppDomain": "https://marshmallow.example.com"
+}

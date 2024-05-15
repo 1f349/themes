@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Themes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        html, body {
+            color-scheme: dark light;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Themes</h1>
+</header>
+<main>
+    {{range $project := .}}
+        <h2>{{.Name}}</h2>
+        <ul>
+            {{range .Files}}
+                <li><a href="/{{$project.Name}}/{{.}}">{{.}}</a></li>
+            {{end}}
+        </ul>
+    {{end}}
+</main>
+</body>
+</html>

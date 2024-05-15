@@ -1,0 +1,14 @@
+{
+  "name": "lavender",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "MrMelon54",
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "build":"go run .",
+    "dev": "go run . -watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}
