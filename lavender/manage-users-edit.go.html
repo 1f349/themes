@@ -11,7 +11,7 @@
     <div class="center-box sm:max-w-2xl">
         <h1 class="box-title">Edit User</h1>
         <form id="manage-users-edit" method="POST" action="/manage/users" class="space-y-4 md:space-y-6">
-            <input type="hidden" name="action" value="create"/>
+            <input type="hidden" name="action" value="edit"/>
             <input type="hidden" name="offset" value="{{.Offset}}"/>
             <input type="hidden" name="subject" value="{{.EditUser.Subject}}"/>
             <div>

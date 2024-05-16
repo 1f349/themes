@@ -11,7 +11,7 @@
     <div class="center-box sm:max-w-2xl">
         <h1 class="box-title">Edit Client Application</h1>
         <form id="manage-apps-edit" method="POST" action="/manage/apps" class="space-y-4 md:space-y-6">
-            <input type="hidden" name="action" value="create"/>
+            <input type="hidden" name="action" value="edit"/>
             <input type="hidden" name="offset" value="{{.Offset}}"/>
             <input type="hidden" name="subject" value="{{.EditApp.Subject}}"/>
             <div>
