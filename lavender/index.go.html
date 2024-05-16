@@ -3,7 +3,7 @@
 <head>
     <title>{{.ServiceName}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body class="min-h-screen">
 {{template "header.go.html" .}}
@@ -11,7 +11,7 @@
     <div class="block rounded-lg shadow bg-gray-800 border border-gray-700 m-8 sm:max-w-md w-full">
         <div class="p-6 sm:p-8 space-y-4 md:space-y-6">
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">{{.ServiceName}}</h1>
-            <div>Logged in as: {{.DisplayName}} ({{.Subject}})</div>
+            <div>Logged in as: {{.Auth.UserInfo.name}} ({{.Auth.Subject}})</div>
             <form method="GET" action="/manage/apps" class="space-y-4 md:space-y-6">
                 <button type="submit" class="w-full text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Manage Applications</button>
             </form>
@@ -20,7 +20,7 @@
                     <button type="submit" class="w-full text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Manage Users</button>
                 </form>
             {{end}}
-            <form method="GET" action="/logout">
+            <form method="POST" action="/logout">
                 <input type="hidden" name="nonce" value="{{.Nonce}}">
                 <button type="submit" class="w-full text-white bg-rose-600 hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">Log out</button>
             </form>

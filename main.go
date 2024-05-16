@@ -126,7 +126,7 @@ func main() {
 			return
 		}
 
-		if r.URL.Path == "/style.css" {
+		if r.URL.Path == "/assets/style.css" {
 			parse, err := url.Parse(r.Referer())
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -138,7 +138,7 @@ func main() {
 				http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 				return
 			}
-			http.ServeFile(w, r, filepath.Join(BaseDir, project, "style.css"))
+			http.ServeFile(w, r, filepath.Join(BaseDir, project, "assets/style.css"))
 			return
 		}
 
@@ -195,9 +195,10 @@ func UpdateOnChange(event <-chan watcher.Event) {
 
 func UpdateTemplate(p string) {
 	Logger.Info("Recompiling template", "path", p)
+	_ = os.Mkdir(filepath.Join(p, "assets"), os.ModePerm)
 
 	// run tailwind command
-	args := []string{"-i", filepath.Join(p, "main.css"), "-o", filepath.Join(p, "style.css"), "-c", filepath.Join(filepath.Dir(p), "tailwind.config.js"), "--minify"}
+	args := []string{"-i", filepath.Join(p, "main.css"), "-o", filepath.Join(p, "assets/style.css"), "-c", filepath.Join(filepath.Dir(p), "tailwind.config.js"), "--minify"}
 	cmd := exec.Command("tailwindcss", args...)
 	cmd.Dir = p
 	tailwindOutput, err := cmd.CombinedOutput()
