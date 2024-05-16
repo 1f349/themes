@@ -88,7 +88,7 @@ func main() {
 		Logger.Warn("Watcher stopped", "err", err)
 	}()
 
-	_ = http.ListenAndServe(":8080", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	_ = http.ListenAndServe(":7070", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
 			TemplateMu.RLock()
 			defer TemplateMu.RUnlock()
