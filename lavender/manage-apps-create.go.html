@@ -10,7 +10,7 @@
 <main>
     <div class="center-box sm:max-w-2xl">
         <h1 class="box-title">Create Client Application</h1>
-        <form method="POST" action="/manage/apps" class="space-y-4 md:space-y-6">
+        <form id="manage-apps-create" method="POST" action="/manage/apps" class="space-y-4 md:space-y-6">
             <input type="hidden" name="action" value="create"/>
             <input type="hidden" name="offset" value="{{.Offset}}"/>
             <div>
@@ -66,11 +66,13 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-                <button name="create_action" value="create" class="btn-green">Create</button>
-                <button name="create_action" value="cancel" class="btn-red">Cancel</button>
-            </div>
         </form>
+        <div class="grid grid-cols-2 gap-4">
+            <button type="submit" class="btn-green" form="manage-apps-create">Create</button>
+            <form method="GET" action="/manage/apps">
+                <button type="submit" class="btn-red">Cancel</button>
+            </form>
+        </div>
     </div>
 </main>
 </body>

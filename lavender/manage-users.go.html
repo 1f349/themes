@@ -42,8 +42,8 @@
                     <td>{{.UpdatedAt}}</td>
                     <td>
                         <label class="flex items-center">
-                            <input type="checkbox" disabled class="focus:outline-none appearance-none relative peer w-6 h-6 border border-gray-300 rounded bg-gray-50 focus:ring focus:ring-3 focus:ring-emerald-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 checked:bg-emerald-700" {{if .Active}}checked{{end}}/>
-                            <svg class="absolute w-6 h-6 mt-1 hidden peer-checked:block pointer-events-none text-gray-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                            <input type="checkbox" disabled {{if .Active}}checked{{end}}/>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
                             <span class="hidden">Active</span>
