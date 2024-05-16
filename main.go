@@ -84,7 +84,7 @@ func main() {
 
 	go UpdateOnChange(w.Event)
 	go func() {
-		err := w.Start(5 * time.Second)
+		err := w.Start(time.Second)
 		Logger.Warn("Watcher stopped", "err", err)
 	}()
 
@@ -202,11 +202,11 @@ func UpdateTemplate(p string) {
 	cmd := exec.Command("tailwindcss", args...)
 	cmd.Dir = p
 	tailwindOutput, err := cmd.CombinedOutput()
+	Logger.Debug(string(tailwindOutput))
 	if err != nil {
 		Logger.Warn("Failed to run tailwind", "err", err)
 		return
 	}
-	Logger.Debug(string(tailwindOutput))
 
 	// make new template
 	fs, err := template.New("theme-template-root").Funcs(DefaultFuncMap).ParseFS(os.DirFS(p), "*.go.html")

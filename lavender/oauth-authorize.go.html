@@ -1,40 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-900">
+<html lang="en">
 <head>
     <title>{{.ServiceName}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body class="min-h-screen">
+<body>
 {{template "header.go.html" .}}
-<main class="flex flex-col items-center mx-auto">
-    <div class="block rounded-lg shadow bg-gray-800 border border-gray-700 m-8 sm:max-w-md w-full">
-        <div class="p-6 sm:p-8 space-y-4">
-            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">{{.AppName}}</h1>
-            <h2 class="text-l font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white text-center">Would like access to your 1f349 account:</h2>
-            <h3 class="text-l leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white text-center">Logged in as: <span class="font-bold">{{.Auth.UserInfo.name}}</span></h3>
-            <div>
-                <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-                    {{range .WantsList}}
-                        <li>{{.}}</li>
-                    {{end}}
-                </ul>
-            </div>
-            <form method="POST" action="/login" class="space-y-4 md:space-y-6">
-                <input type="hidden" name="response_type" value="{{.ResponseType}}"/>
-                <input type="hidden" name="response_mode" value="{{.ResponseMode}}">
-                <input type="hidden" name="client_id" value="{{.ClientID}}"/>
-                <input type="hidden" name="redirect_uri" value="{{.RedirectUri}}"/>
-                <input type="hidden" name="state" value="{{.State}}"/>
-                <input type="hidden" name="scope" value="{{.Scope}}"/>
-                <input type="hidden" name="nonce" value="{{.Nonce}}"/>
-                <div class="grid grid-cols-2 gap-4">
-                    <button name="oauth_action" value="authorize" class="w-full text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Authorize</button>
-                    <button name="oauth_action" value="cancel" class="w-full text-white bg-rose-600 hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">Cancel</button>
-                </div>
-            </form>
-            <div>Authorizing this action will redirect you to <a href="" class="font-bold">{{.AppDomain}}</a> with access to the permissions requested above.</div>
+<main>
+    <div class="center-box sm:max-w-md">
+        <h1 class="box-title">{{.AppName}}</h1>
+        <h2 class="text-l font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white text-center">Would like access to your 1f349 account:</h2>
+        <h3 class="text-l leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white text-center">Logged in as: <span class="font-bold">{{.Auth.UserInfo.name}}</span></h3>
+        <div>
+            <ul class="space-y-1 text-gray-800 list-disc list-inside dark:text-gray-400">
+                {{range .WantsList}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
         </div>
+        <form method="POST" action="/login" class="space-y-4 md:space-y-6">
+            <input type="hidden" name="response_type" value="{{.ResponseType}}"/>
+            <input type="hidden" name="response_mode" value="{{.ResponseMode}}">
+            <input type="hidden" name="client_id" value="{{.ClientID}}"/>
+            <input type="hidden" name="redirect_uri" value="{{.RedirectUri}}"/>
+            <input type="hidden" name="state" value="{{.State}}"/>
+            <input type="hidden" name="scope" value="{{.Scope}}"/>
+            <input type="hidden" name="nonce" value="{{.Nonce}}"/>
+            <div class="grid grid-cols-2 gap-4">
+                <button type="submit" name="oauth_action" value="authorize" class="btn-green">Authorize</button>
+                <button type="submit" name="oauth_action" value="cancel" class="btn-red">Cancel</button>
+            </div>
+        </form>
+        <div>Authorizing this action will redirect you to <a href="" class="font-bold">{{.AppDomain}}</a> with access to the permissions requested above.</div>
     </div>
 </main>
 </body>

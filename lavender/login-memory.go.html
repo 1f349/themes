@@ -1,30 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-900">
+<html lang="en">
 <head>
     <title>{{.ServiceName}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body class="min-h-screen">
+<body>
 {{template "header.go.html" .}}
-<main class="flex flex-col items-center mx-auto">
-    <div class="block rounded-lg shadow bg-gray-800 border border-gray-700 m-8 sm:max-w-md w-full">
-        <div class="p-6 sm:p-8 space-y-4 md:space-y-6">
-            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">Login</h1>
+<main>
+    <div class="center-box sm:max-w-md">
+            <h1 class="box-title">Login</h1>
             <div>
-                <label for="field_loginname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Log in as</label>
-                <input disabled value="{{.LoginName}}" type="email" name="loginname" id="field_loginname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
+                <label for="field_loginname">Log in as</label>
+                <input disabled value="{{.LoginName}}" type="email" name="loginname" id="field_loginname" placeholder="name@company.com" required>
             </div>
             <form method="POST" action="/login">
-                <button type="submit" name="not-you" value="1" class="w-full text-white bg-rose-600 hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">Not You?</button>
+                <button type="submit" name="not-you" value="1" class="btn-red">Not You?</button>
             </form>
             <form method="POST" action="/login">
                 <input type="hidden" name="redirect" value="{{.Redirect}}"/>
                 <input type="hidden" name="loginname" value="{{.LoginName}}"/>
-                <button type="submit" class="w-full text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Continue</button>
+                <button type="submit" class="btn-green">Continue</button>
             </form>
         </div>
-    </div>
 </main>
 </body>
 </html>

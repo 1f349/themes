@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{.ServiceName}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+{{template "header.go.html" .}}
+<main>
+    <div class="center-box sm:max-w-2xl">
+        <h1 class="box-title">Edit User</h1>
+        <form method="POST" action="/manage/users" class="space-y-4 md:space-y-6">
+            <input type="hidden" name="action" value="create"/>
+            <input type="hidden" name="offset" value="{{.Offset}}"/>
+            <input type="hidden" name="subject" value="{{.EditUser.Subject}}"/>
+            <div>
+                <label for="field_subject">Subject: {{.EditUser.Subject}}</label>
+            </div>
+            <div>
+                <label for="field_roles">Roles:</label>
+                <input type="text" name="roles" id="field_roles" value="{{.EditUser.Roles}}" size="100"/>
+            </div>
+            <div class="flex flex-row justify-center">
+                <div class="space-y-4 md:space-y-6">
+                    <div class="flex">
+                        <div class="flex items-center h-5">
+                            <input id="field_active" name="active" type="checkbox" {{if .EditUser.Active}}checked{{end}}/>
+                            <svg class="check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="field_active">Enable the user</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button name="edit_action" value="edit" class="btn-green">Save</button>
+                <button name="edit_action" value="cancel" class="btn-red">Cancel</button>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

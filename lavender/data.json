@@ -1,7 +1,11 @@
 {
     "ServiceName": "Test Service",
-    "DisplayName": "Test User",
-    "Subject": "uuid",
+    "Auth": {
+        "Subject": "user uuid",
+        "UserInfo": {
+            "name": "Test User"
+        }
+    },
     "IsAdmin": true,
     "LoginName": "jane@example.com",
     "WantsList": [
@@ -9,5 +13,44 @@
         "Another perm"
     ],
     "AppName": "Marshmallow Sample App",
-    "AppDomain": "https://marshmallow.example.com"
+    "AppDomain": "https://marshmallow.example.com",
+    "NewAppSecret": "$$AppSecret$$",
+    "NewAppName": "Marshmallow Sample App",
+    "EditApp": {
+        "Subject": "msa-uuid",
+        "Name": "Marshmallow Sample App",
+        "Domain": "http://marshmallow.example.com",
+        "Perms": "lavender:subject",
+        "Public": true,
+        "Sso": false,
+        "Active": true
+    },
+    "Apps": [
+        {
+            "Subject": "msa-uuid",
+            "Name": "Marshmallow Sample App",
+            "Domain": "http://marshmallow.example.com",
+            "Perms": "lavender:subject",
+            "Public": true,
+            "Sso": false,
+            "Active": true,
+            "Owner": true
+        }
+    ],
+    "EditUser": {
+        "Subject": "msu-uuid",
+        "Roles": "msu:role",
+        "Active": true
+    },
+    "Users": [
+        {
+            "Subject": "msu-uuid",
+            "Email": "jane@example.com",
+            "EmailVerified": true,
+            "Roles": "msu:role",
+            "LastUpdated": "2024-01-01",
+            "Active": true
+        }
+    ],
+    "Offset": 0
 }
