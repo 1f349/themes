@@ -19,7 +19,7 @@
                 {{end}}
             </ul>
         </div>
-        <form method="POST" action="/login" class="space-y-4 md:space-y-6">
+        <form method="POST" action="/authorize" class="space-y-4 md:space-y-6">
             <input type="hidden" name="response_type" value="{{.ResponseType}}"/>
             <input type="hidden" name="response_mode" value="{{.ResponseMode}}">
             <input type="hidden" name="client_id" value="{{.ClientID}}"/>
