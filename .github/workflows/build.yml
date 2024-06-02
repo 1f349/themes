@@ -16,6 +16,8 @@ jobs:
       with:
         node-version: latest
     - uses: actions/checkout@v4
+    - run: yarn
+    - run: yarn global add tailwindcss
     - run: yarn build
     - run: tar -czvf lavender.tar.gz lavender/
     - name: Release
