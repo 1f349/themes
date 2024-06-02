@@ -1,0 +1,20 @@
+on: [push, pull_request]
+name: Build
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v5
+      with:
+        go-version: stable
+    - uses: actions/setup-node@v4
+      with:
+        node-version: latest
+    - uses: actions/checkout@v4
+    - run: yarn build
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/v')
+      with:
+        files: |
+          lavender/**
