@@ -5,7 +5,7 @@
   "author": "MrMelon54",
   "license": "GPL-3.0-only",
   "scripts": {
-    "build":"go run .",
+    "build": "go run .",
     "dev": "go run . -watch"
   },
   "devDependencies": {
